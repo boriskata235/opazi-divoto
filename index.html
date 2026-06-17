@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Опази дивото — Застрашени животни и растения в България</title>
+
+  <!-- Google Fonts: Playfair Display (заглавия) + Inter (текст) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Tailwind CSS (CDN, конфигуриран с дизайн системата) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            // Дизайн система — природна палитра
+            forest: {
+              DEFAULT: "#2D4A2B", // Тъмно зелено (основен)
+              dark: "#1a2e1a",    // Тъмно зелено акцент
+              50: "#f1f5f0",
+              100: "#dde7db",
+              200: "#bccfb8",
+              300: "#94b08e",
+              400: "#6b8d65",
+              500: "#4d6f47",
+              600: "#3a5635",
+              700: "#2D4A2B",
+              800: "#243b22",
+              900: "#1a2e1a",
+            },
+            crimson: {
+              DEFAULT: "#8B2C2C", // Червено за акценти
+              dark: "#6b2020",
+              light: "#a84545",
+            },
+            earth: {
+              DEFAULT: "#5C4033", // Кафяво
+              dark: "#3f2c23",
+              light: "#7a5947",
+            },
+            cream: {
+              DEFAULT: "#F5F1E8", // Кремаво
+              dark: "#e8e1cc",
+              light: "#fbf8f1",
+            },
+            ink: "#1a1a1a", // Тъмен текст
+          },
+          fontFamily: {
+            serif: ['"Playfair Display"', "Georgia", "serif"],
+            sans: ['"Inter"', "system-ui", "sans-serif"],
+          },
+          boxShadow: {
+            soft: "0 2px 12px -2px rgba(26, 46, 26, 0.08), 0 1px 4px -1px rgba(26, 46, 26, 0.06)",
+            card: "0 8px 24px -8px rgba(26, 46, 26, 0.12), 0 4px 8px -4px rgba(26, 46, 26, 0.08)",
+            lift: "0 16px 40px -12px rgba(26, 46, 26, 0.18), 0 8px 16px -8px rgba(26, 46, 26, 0.1)",
+          },
+          borderRadius: {
+            xl2: "1.25rem",
+          },
+          transitionTimingFunction: {
+            organic: "cubic-bezier(0.22, 1, 0.36, 1)",
+          },
+        },
+      },
+    };
+  </script>
+
+  <!-- Глобални стилове (съдържанието е огледало на src/index.css) -->
+  <style>
+    :root {
+      --color-forest: #2D4A2B;
+      --color-forest-dark: #1a2e1a;
+      --color-crimson: #8B2C2C;
+      --color-earth: #5C4033;
+      --color-cream: #F5F1E8;
+      --color-ink: #1a1a1a;
+
+      --color-forest-50: #f1f5f0;
+      --color-forest-100: #dde7db;
+      --color-cream-dark: #e8e1cc;
+      --color-cream-light: #fbf8f1;
+      --color-earth-light: #7a5947;
+      --color-crimson-dark: #6b2020;
+
+      --font-serif: "Playfair Display", Georgia, "Times New Roman", serif;
+      --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+      --radius-sm: 0.375rem;
+      --radius-md: 0.625rem;
+      --radius-lg: 1rem;
+      --radius-xl: 1.25rem;
+      --radius-2xl: 1.75rem;
+
+      --shadow-soft: 0 2px 12px -2px rgba(26, 46, 26, 0.08), 0 1px 4px -1px rgba(26, 46, 26, 0.06);
+      --shadow-card: 0 8px 24px -8px rgba(26, 46, 26, 0.12), 0 4px 8px -4px rgba(26, 46, 26, 0.08);
+      --shadow-lift: 0 16px 40px -12px rgba(26, 46, 26, 0.18), 0 8px 16px -8px rgba(26, 46, 26, 0.1);
+
+      --ease-organic: cubic-bezier(0.22, 1, 0.36, 1);
+      --transition-fast: 180ms var(--ease-organic);
+      --transition-base: 280ms var(--ease-organic);
+      --transition-slow: 480ms var(--ease-organic);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: var(--font-sans);
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--color-ink);
+      background-color: var(--color-cream);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: var(--font-serif);
+      font-weight: 600;
+      line-height: 1.15;
+      letter-spacing: -0.015em;
+      color: var(--color-forest-dark);
+      margin: 0;
+      text-wrap: balance;
+    }
+
+    h1 { font-size: clamp(2.5rem, 5vw, 4.25rem); font-weight: 700; }
+    h2 { font-size: clamp(2rem, 3.5vw, 3rem); }
+    h3 { font-size: clamp(1.5rem, 2.5vw, 2rem); }
+    h4 { font-size: 1.375rem; }
+    h5 { font-size: 1.125rem; }
+    h6 { font-size: 1rem; text-transform: uppercase; letter-spacing: 0.08em; }
+
+    p { margin: 0; text-wrap: pretty; }
+
+    a {
+      color: var(--color-forest);
+      text-decoration: none;
+      transition: color var(--transition-fast);
+    }
+    a:hover { color: var(--color-crimson); }
+
+    .accent-rule {
+      display: inline-block;
+      width: 3rem;
+      height: 2px;
+      background: var(--color-crimson);
+      border-radius: 1px;
+    }
+
+    .eyebrow {
+      font-family: var(--font-sans);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--color-crimson);
+    }
+
+    .lede {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-weight: 400;
+      font-size: 1.25rem;
+      line-height: 1.5;
+      color: var(--color-earth);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.875rem 1.75rem;
+      font-family: var(--font-sans);
+      font-size: 0.9375rem;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+      border-radius: var(--radius-lg);
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: all var(--transition-base);
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background-color: var(--color-forest);
+      color: var(--color-cream);
+      box-shadow: var(--shadow-soft);
+    }
+    .btn-primary:hover {
+      background-color: var(--color-forest-dark);
+      color: var(--color-cream);
+      box-shadow: var(--shadow-card);
+      transform: translateY(-1px);
+    }
+
+    .btn-accent {
+      background-color: var(--color-crimson);
+      color: var(--color-cream);
+      box-shadow: var(--shadow-soft);
+    }
+    .btn-accent:hover {
+      background-color: var(--color-crimson-dark);
+      color: var(--color-cream);
+      box-shadow: var(--shadow-card);
+      transform: translateY(-1px);
+    }
+
+    .btn-ghost {
+      background-color: transparent;
+      color: var(--color-forest-dark);
+      border-color: var(--color-forest);
+    }
+    .btn-ghost:hover {
+      background-color: var(--color-forest);
+      color: var(--color-cream);
+    }
+
+    .card {
+      background-color: #ffffff;
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-card);
+      overflow: hidden;
+      transition: box-shadow var(--transition-base), transform var(--transition-base);
+    }
+    .card:hover {
+      box-shadow: var(--shadow-lift);
+      transform: translateY(-2px);
+    }
+
+    .container-page {
+      width: 100%;
+      max-width: 1200px;
+      margin-inline: auto;
+      padding-inline: clamp(1.25rem, 4vw, 2.5rem);
+    }
+
+    .container-narrow {
+      width: 100%;
+      max-width: 768px;
+      margin-inline: auto;
+      padding-inline: clamp(1.25rem, 4vw, 2.5rem);
+    }
+
+    ::-webkit-scrollbar { width: 10px; height: 10px; }
+    ::-webkit-scrollbar-track { background: var(--color-cream-dark); }
+    ::-webkit-scrollbar-thumb {
+      background: var(--color-forest);
+      border-radius: 5px;
+      border: 2px solid var(--color-cream-dark);
+    }
+    ::-webkit-scrollbar-thumb:hover { background: var(--color-forest-dark); }
+
+    ::selection {
+      background-color: var(--color-forest);
+      color: var(--color-cream);
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--color-crimson);
+      outline-offset: 3px;
+      border-radius: var(--radius-sm);
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-in-up {
+      animation: fadeInUp 0.6s var(--ease-organic) both;
+    }
+
+    /* ====== KEN BURNS HERO ====== */
+    /* Total cycle: 24s. Image 1 visible 0–12s, Image 2 visible 12–24s.
+       Crossfade ~2.5s. Each image slowly zooms 1.0 → 1.15 across its 12s window. */
+    @keyframes kenBurnsA {
+      0%   { transform: scale(1.0)  translate(0%, 0%); }
+      50%  { transform: scale(1.15) translate(-1.5%, -1%); }
+      50.01%, 100% { transform: scale(1.0) translate(0%, 0%); }
+    }
+    @keyframes kenBurnsB {
+      0%, 50% { transform: scale(1.0) translate(0%, 0%); }
+      50.01% { transform: scale(1.0) translate(0%, 0%); }
+      100%   { transform: scale(1.15) translate(1.5%, 1%); }
+    }
+    @keyframes crossfadeA {
+      0%, 45%   { opacity: 1; }
+      50%       { opacity: 0; }
+      95%       { opacity: 0; }
+      100%      { opacity: 1; }
+    }
+    @keyframes crossfadeB {
+      0%, 45%   { opacity: 0; }
+      50%, 95%  { opacity: 1; }
+      100%      { opacity: 0; }
+    }
+
+    .kb-layer {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      will-change: transform, opacity;
+    }
+    .kb-a {
+      animation: kenBurnsA 24s ease-in-out infinite, crossfadeA 24s ease-in-out infinite;
+    }
+    .kb-b {
+      animation: kenBurnsB 24s ease-in-out infinite, crossfadeB 24s ease-in-out infinite;
+    }
+
+    /* ====== BOUNCE ARROW ====== */
+    @keyframes softBounce {
+      0%, 100% { transform: translateY(0); }
+      50%      { transform: translateY(10px); }
+    }
+    .animate-soft-bounce {
+      animation: softBounce 2s ease-in-out infinite;
+    }
+
+    /* Subtle text shadow for legibility on hero */
+    .text-shadow-hero {
+      text-shadow: 0 2px 24px rgba(0, 0, 0, 0.45),
+                   0 1px 3px rgba(0, 0, 0, 0.3);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+
+  <!-- React 18 + ReactDOM (UMD) -->
+  <script
+    src="https://unpkg.com/react@18.3.1/umd/react.development.js"
+    integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js"
+    integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm"
+    crossorigin="anonymous"
+  ></script>
+  <!-- React Router 5 (UMD) — стабилен за директно зареждане през браузъра -->
+  <script src="https://unpkg.com/react-router@5.3.4/umd/react-router.min.js"></script>
+  <script src="https://unpkg.com/react-router-dom@5.3.4/umd/react-router-dom.min.js"></script>
+  <!-- Framer Motion (UMD, експонира window.FramerMotion) -->
+  <script src="https://unpkg.com/framer-motion@11.3.19/dist/framer-motion.js"></script>
+  <!-- Google model-viewer web component (за .glb 3D модели) -->
+  <script type="module" src="https://unpkg.com/@google/model-viewer@3.5.0/dist/model-viewer.min.js"></script>
+  <!-- Babel standalone (трансформира JSX в браузъра) -->
+  <script
+    src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js"
+    integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y"
+    crossorigin="anonymous"
+  ></script>
+</head>
+<body>
+  <div id="root"></div>
+
+  <!-- Източници (имитират .tsx файлове в реален Vite проект) -->
+  <script type="text/babel" src="src/components/Icons.jsx"></script>
+  <script type="text/babel" src="src/components/PagePlaceholder.jsx"></script>
+  <script type="text/babel" src="src/components/Navbar.jsx"></script>
+  <script type="text/babel" src="src/components/Layout.jsx"></script>
+  <script type="text/babel" src="src/components/ui/organization-sphere.jsx"></script>
+  <script type="text/babel" src="src/components/ui/scroll-background.jsx"></script>
+  <script type="text/babel" src="src/components/ui/animal-3d-viewer.jsx"></script>
+  <script type="text/babel" src="src/pages/Home.jsx"></script>
+  <script type="text/babel" src="src/components/sections/OrganizationsSection.jsx"></script>
+  <script type="text/babel" src="src/components/ui/brown-bear-spotlight.jsx"></script>
+  <script type="text/babel" src="src/components/ui/chamois-spotlight.jsx"></script>
+  <script type="text/babel" src="src/components/ui/squirrel-spotlight.jsx"></script>
+  <script type="text/babel" src="src/components/ui/wildcat-spotlight.jsx"></script>
+  <script type="text/babel" src="src/components/ui/otter-spotlight.jsx"></script>
+  <script type="text/babel" src="src/components/ui/monk-seal-spotlight.jsx"></script>
+  <script type="text/babel" src="src/components/ui/egyptian-vulture-spotlight.jsx"></script>
+  <script type="text/babel" src="src/components/ui/bearded-vulture-spotlight.jsx"></script>
+  <script type="text/babel" src="src/components/ui/imperial-eagle-spotlight.jsx"></script>
+  <script type="text/babel" src="src/components/ui/hermanns-tortoise-spotlight.jsx"></script>
+  <script type="text/babel" src="src/components/ui/silivryak-spotlight.jsx"></script>
+  <script type="text/babel" src="src/components/ui/urumov-mullein-spotlight.jsx"></script>
+  <script type="text/babel" src="src/components/ui/rila-primrose-spotlight.jsx"></script>
+  <script type="text/babel" src="src/components/ui/snowdrop-spotlight.jsx"></script>
+  <script type="text/babel" src="src/components/ui/yellow-lily-spotlight.jsx"></script>
+  <script type="text/babel" src="src/components/ui/alpine-rose-spotlight.jsx"></script>
+  <script type="text/babel" src="src/components/ui/thracian-yarrow-spotlight.jsx"></script>
+  <script type="text/babel" src="src/components/ui/pontic-fritillary-spotlight.jsx"></script>
+  <script type="text/babel" src="src/components/ui/plant-detail-template.jsx"></script>
+  <script type="text/babel" src="src/components/ui/parallax-scroll-feature-section.jsx"></script>
+  <script type="text/babel" src="src/pages/Animals.jsx"></script>
+  <script type="text/babel" src="src/pages/BrownBearDetail.jsx"></script>
+  <script type="text/babel" src="src/pages/BalkanChamoisDetail.jsx"></script>
+  <script type="text/babel" src="src/pages/EuropeanGroundSquirrelDetail.jsx"></script>
+  <script type="text/babel" src="src/pages/WildcatDetail.jsx"></script>
+  <script type="text/babel" src="src/pages/EurasianOtterDetail.jsx"></script>
+  <script type="text/babel" src="src/pages/MonkSealDetail.jsx"></script>
+  <script type="text/babel" src="src/pages/EgyptianVultureDetail.jsx"></script>
+  <script type="text/babel" src="src/pages/BeardedVultureDetail.jsx"></script>
+  <script type="text/babel" src="src/pages/ImperialEagleDetail.jsx"></script>
+  <script type="text/babel" src="src/pages/HermannsTortoiseDetail.jsx"></script>
+  <script type="text/babel" src="src/pages/AnimalsMore.jsx"></script>
+  <script type="text/babel" src="src/pages/Plants.jsx"></script>
+  <script type="text/babel" src="src/pages/SilivryakDetail.jsx"></script>
+  <script type="text/babel" src="src/pages/UrumovMulleinDetail.jsx"></script>
+  <script type="text/babel" src="src/pages/RilaPrimroseDetail.jsx"></script>
+  <script type="text/babel" src="src/pages/SnowdropDetail.jsx"></script>
+  <script type="text/babel" src="src/pages/YellowLilyDetail.jsx"></script>
+  <script type="text/babel" src="src/pages/AlpineRoseDetail.jsx"></script>
+  <script type="text/babel" src="src/pages/ThracianYarrowDetail.jsx"></script>
+  <script type="text/babel" src="src/pages/PonticFritillaryDetail.jsx"></script>
+  <script type="text/babel" src="src/pages/PlantsMore.jsx"></script>
+  <script type="text/babel" src="src/pages/RedBook.jsx"></script>
+  <script type="text/babel" src="src/pages/Organizations.jsx"></script>
+  <script type="text/babel" src="src/pages/Contact.jsx"></script>
+  <script type="text/babel" src="src/App.jsx"></script>
+  <script type="text/babel" src="src/main.jsx"></script>
+</body>
+</html>

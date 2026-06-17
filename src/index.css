@@ -1,0 +1,300 @@
+/* ============================================================
+   Опази дивото — Глобални стилове и дизайн система
+   Тема: Застрашени животни и растения в България
+   ============================================================ */
+
+:root {
+  /* === ЦВЕТОВА ПАЛИТРА === */
+  --color-forest: #2D4A2B;        /* Тъмно зелено (основен) */
+  --color-forest-dark: #1a2e1a;   /* Тъмно зелено акцент */
+  --color-crimson: #8B2C2C;       /* Червено (акценти, важни бутони) */
+  --color-earth: #5C4033;         /* Кафяво (фонове, второстепенни) */
+  --color-cream: #F5F1E8;         /* Кремаво (светли фонове, текст върху тъмно) */
+  --color-ink: #1a1a1a;           /* Тъмен текст */
+
+  /* Производни нюанси */
+  --color-forest-50: #f1f5f0;
+  --color-forest-100: #dde7db;
+  --color-cream-dark: #e8e1cc;
+  --color-cream-light: #fbf8f1;
+  --color-earth-light: #7a5947;
+  --color-crimson-dark: #6b2020;
+
+  /* === ТИПОГРАФИЯ === */
+  --font-serif: "Playfair Display", Georgia, "Times New Roman", serif;
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* === РАДИУСИ === */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.625rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.25rem;
+  --radius-2xl: 1.75rem;
+
+  /* === СЕНКИ (меки, природни) === */
+  --shadow-soft: 0 2px 12px -2px rgba(26, 46, 26, 0.08),
+                 0 1px 4px -1px rgba(26, 46, 26, 0.06);
+  --shadow-card: 0 8px 24px -8px rgba(26, 46, 26, 0.12),
+                 0 4px 8px -4px rgba(26, 46, 26, 0.08);
+  --shadow-lift: 0 16px 40px -12px rgba(26, 46, 26, 0.18),
+                 0 8px 16px -8px rgba(26, 46, 26, 0.1);
+
+  /* === ПРЕХОДИ === */
+  --ease-organic: cubic-bezier(0.22, 1, 0.36, 1);
+  --transition-fast: 180ms var(--ease-organic);
+  --transition-base: 280ms var(--ease-organic);
+  --transition-slow: 480ms var(--ease-organic);
+}
+
+/* ============================================================
+   RESET / BASE
+   ============================================================ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--color-ink);
+  background-color: var(--color-cream);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* ============================================================
+   ТИПОГРАФИЯ
+   ============================================================ */
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  color: var(--color-forest-dark);
+  margin: 0;
+  text-wrap: balance;
+}
+
+h1 { font-size: clamp(2.5rem, 5vw, 4.25rem); font-weight: 700; }
+h2 { font-size: clamp(2rem, 3.5vw, 3rem); }
+h3 { font-size: clamp(1.5rem, 2.5vw, 2rem); }
+h4 { font-size: 1.375rem; }
+h5 { font-size: 1.125rem; }
+h6 { font-size: 1rem; text-transform: uppercase; letter-spacing: 0.08em; }
+
+p {
+  margin: 0;
+  text-wrap: pretty;
+}
+
+a {
+  color: var(--color-forest);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+a:hover {
+  color: var(--color-crimson);
+}
+
+/* ============================================================
+   ДОПЪЛНИТЕЛНИ КЛАСОВЕ
+   ============================================================ */
+
+/* Декоративен акцент — тънка линия под заглавия */
+.accent-rule {
+  display: inline-block;
+  width: 3rem;
+  height: 2px;
+  background: var(--color-crimson);
+  border-radius: 1px;
+}
+
+/* "Eyebrow" — малък надпис над заглавия */
+.eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-crimson);
+}
+
+/* Курсивен серифен подзаглавен текст */
+.lede {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.25rem;
+  line-height: 1.5;
+  color: var(--color-earth);
+}
+
+/* ============================================================
+   БУТОНИ
+   ============================================================ */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.875rem 1.75rem;
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  border-radius: var(--radius-lg);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.btn-primary {
+  background-color: var(--color-forest);
+  color: var(--color-cream);
+  box-shadow: var(--shadow-soft);
+}
+.btn-primary:hover {
+  background-color: var(--color-forest-dark);
+  color: var(--color-cream);
+  box-shadow: var(--shadow-card);
+  transform: translateY(-1px);
+}
+
+.btn-accent {
+  background-color: var(--color-crimson);
+  color: var(--color-cream);
+  box-shadow: var(--shadow-soft);
+}
+.btn-accent:hover {
+  background-color: var(--color-crimson-dark);
+  color: var(--color-cream);
+  box-shadow: var(--shadow-card);
+  transform: translateY(-1px);
+}
+
+.btn-ghost {
+  background-color: transparent;
+  color: var(--color-forest-dark);
+  border-color: var(--color-forest);
+}
+.btn-ghost:hover {
+  background-color: var(--color-forest);
+  color: var(--color-cream);
+}
+
+/* ============================================================
+   КАРТИ
+   ============================================================ */
+
+.card {
+  background-color: #ffffff;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+  transition: box-shadow var(--transition-base), transform var(--transition-base);
+}
+
+.card:hover {
+  box-shadow: var(--shadow-lift);
+  transform: translateY(-2px);
+}
+
+/* ============================================================
+   КОНТЕЙНЕРИ
+   ============================================================ */
+
+.container-page {
+  width: 100%;
+  max-width: 1200px;
+  margin-inline: auto;
+  padding-inline: clamp(1.25rem, 4vw, 2.5rem);
+}
+
+.container-narrow {
+  width: 100%;
+  max-width: 768px;
+  margin-inline: auto;
+  padding-inline: clamp(1.25rem, 4vw, 2.5rem);
+}
+
+/* ============================================================
+   SCROLLBAR
+   ============================================================ */
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-cream-dark);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-forest);
+  border-radius: 5px;
+  border: 2px solid var(--color-cream-dark);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-forest-dark);
+}
+
+/* ============================================================
+   SELECTION
+   ============================================================ */
+
+::selection {
+  background-color: var(--color-forest);
+  color: var(--color-cream);
+}
+
+/* ============================================================
+   ФОКУС (достъпност)
+   ============================================================ */
+
+:focus-visible {
+  outline: 2px solid var(--color-crimson);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+/* ============================================================
+   АНИМАЦИИ
+   ============================================================ */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s var(--ease-organic) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
